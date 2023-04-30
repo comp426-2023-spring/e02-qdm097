@@ -62,7 +62,52 @@ const app = express()
 // Set a port for the server to listen on
 const port = args.port || args.p || process.env.PORT || 8080
 // Load app middleware here to serve routes, accept data requests, etc.
-//
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+import {rps, rpsls} from './public/rpsls.js';
+
+app.get('/app', (req, res) => {
+	res.status(200).send("200 OK");
+});
+
+app.get('/app/rps', (req, res) => {
+	res.status(200).send(rps());
+});
+
+app.get('/app/rpsls', (req, res) => {
+	res.status(200).send(rpsls());
+});
+
+// url encoding params
+app.get('/app/rps/play', (req, res) => {
+	res.status(200).send(rps(req.query.shot));
+});
+
+app.get('/app/rpsls/play', (req, res) => {
+	res.status(200).send(rpsls(req.query.shot));
+});
+
+
+// json body params
+app.post('/app/rps/play/', (req, res) => {
+	res.status(200).send(rps(req.body.shot));
+});
+
+app.post('/app/rpsls/play/', (req, res) => {
+	res.status(200).send(rpsls(req.body.shot));
+});
+
+// params
+app.get('/app/rps/play/:shot', (req, res) => {
+	res.status(200).send(rps(req.params.shot));
+});
+
+app.get('/app/rpsls/play/:shot', (req, res) => {
+	res.status(200).send(rpsls(req.params.shot));
+});
+
 // Create and update access log
 // The morgan format below is the Apache Foundation combined format but with ISO8601 dates
 app.use(morgan(':remote-addr - :remote-user [:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
