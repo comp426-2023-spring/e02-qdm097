@@ -35,6 +35,39 @@ function startOver () {
 	$('#res_value').text("")
 }
 
+function showRules() {
+	var url = window.location.href + 'app/'
+	// Get which game is being played based on the value in the form
+	let game = $('input[type=radio][name=game]:checked').val();
+	let res = ''
+	if(game==='rps'){
+		res = `
+Rules for Rock Paper Scissors:<br>
+<br>
+  - Scissors CUTS Paper<br>
+  - Paper COVERS Rock<br>
+  - Rock CRUSHES Scissors<br>
+	`
+	}
+	else{
+		res = `
+			Rules for the Lizard-Spock Espansion of Rock Paper Scissors:<br>
+			<br>
+			  - Scissors CUTS Paper<br>
+			  - Paper COVERS Rock<br>
+			  - Rock SMOOSHES Lizard<br>
+			  - Lizard POISONS Spock<br>
+			  - Spock SMASHES Scissors<br>
+			  - Scissors DECAPITATES Lizard<br>
+			  - Lizard EATS Paper<br>
+			  - Paper DISPROVES Spock<br>
+			  - Spock VAPORIZES Rock<br>
+			  - Rock CRUSHES Scissors<br>
+			`
+	}
+	$('#res_value').html(res).text()
+}
+
 async function playGame () {
 	// Get which game is being played based on the value in the form
 	let game = $('input[type=radio][name=game]:checked').val();
